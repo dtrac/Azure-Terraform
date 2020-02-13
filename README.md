@@ -51,8 +51,11 @@ Common commands:
 ### Using Env Vars:
 
 export ARM_CLIENT_ID="<Redacted>"
+    
 export ARM_CLIENT_SECRET="<Redacted>"
+    
 export ARM_SUBSCRIPTION_ID="<Redacted>"
+    
 export ARM_TENANT_ID="<Redacted>"
 
 ### Using Provider Block:
