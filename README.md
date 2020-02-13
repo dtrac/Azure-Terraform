@@ -37,3 +37,11 @@ Common commands:
     destroy            Destroy Terraform-managed infrastructure
 ...
 ```
+
+## Useful Links:
+
+[HCL Reference](https://www.terraform.io/docs/configuration/index.html)
+[AzureRm Provider Auth](https://www.terraform.io/docs/providers/azurerm/index.html#authenticating-to-azure)
+[Guide for enthusiasts!](https://thorsten-hans.com/terraform-the-definitive-guide-for-azure-enthusiasts)
+
+
