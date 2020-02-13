@@ -46,4 +46,57 @@ Common commands:
 
 [Guide for enthusiasts!](https://thorsten-hans.com/terraform-the-definitive-guide-for-azure-enthusiasts)
 
+## Authentication Tips:
+
+### Using Env Vars:
+
+export ARM_CLIENT_ID="<Redacted>"
+    
+export ARM_CLIENT_SECRET="<Redacted>"
+    
+export ARM_SUBSCRIPTION_ID="<Redacted>"
+    
+export ARM_TENANT_ID="<Redacted>"
+
+### Using Provider Block:
+```
+variable "client_secret" {
+}
+
+provider "azurerm" {
+  version = "=1.44.0"
+
+  subscription_id = "00000000-0000-0000-0000-000000000000"
+  client_id       = "00000000-0000-0000-0000-000000000000"
+  client_secret   = var.client_secret
+  tenant_id       = "00000000-0000-0000-0000-000000000000"
+}
+```
+
+## Create tfstate storage
+
+```
+REGION=uksouth
+RESOURCE_GROUP_NAME=tstate
+STORAGE_ACCOUNT_NAME=tstate$RANDOM
+CONTAINER_NAME=tstate
+
+# Create resource group
+az group create --name $RESOURCE_GROUP_NAME --location $REGION
+
+# Create storage account
+az storage account create --resource-group $RESOURCE_GROUP_NAME --name $STORAGE_ACCOUNT_NAME --sku Standard_LRS --encryption-services blob
+
+# Get storage account key
+ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query [0].value -o tsv)
+
+# Create blob container
+az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT_NAME --account-key $ACCOUNT_KEY
+
+echo "storage_account_name: $STORAGE_ACCOUNT_NAME"
+echo "container_name: $CONTAINER_NAME"
+echo "access_key: $ACCOUNT_KEY"
+```
+
+
 
