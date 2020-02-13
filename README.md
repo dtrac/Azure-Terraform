@@ -46,4 +46,29 @@ Common commands:
 
 [Guide for enthusiasts!](https://thorsten-hans.com/terraform-the-definitive-guide-for-azure-enthusiasts)
 
+## Authentication Tips:
+
+### Using Env Vars:
+
+export ARM_CLIENT_ID="<Redacted>"
+export ARM_CLIENT_SECRET="<Redacted>"
+export ARM_SUBSCRIPTION_ID="<Redacted>"
+export ARM_TENANT_ID="<Redacted>"
+
+### Using Provider Block:
+```
+variable "client_secret" {
+}
+
+provider "azurerm" {
+  version = "=1.44.0"
+
+  subscription_id = "00000000-0000-0000-0000-000000000000"
+  client_id       = "00000000-0000-0000-0000-000000000000"
+  client_secret   = var.client_secret
+  tenant_id       = "00000000-0000-0000-0000-000000000000"
+}
+```
+
+
 
