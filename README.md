@@ -40,6 +40,8 @@ Common commands:
 
 ## Useful Links:
 
+[Azure Registry](https://registry.terraform.io/search?q=azure)
+
 [HCL Reference](https://www.terraform.io/docs/configuration/index.html)
 
 [AzureRm Provider Auth](https://www.terraform.io/docs/providers/azurerm/index.html#authenticating-to-azure)
@@ -98,7 +100,7 @@ echo "container_name: $CONTAINER_NAME"
 echo "access_key: $ACCOUNT_KEY"
 ```
 
-## Function usage:
+## Lookup function usage:
 
 ```
 location = "westus" # from terraform.tfvars
@@ -115,6 +117,8 @@ output "os_sku" {  # from main.tf
 }
 ```
 ...would return "16.04-LTS"
+
+
 
 
 
