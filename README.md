@@ -98,5 +98,23 @@ echo "container_name: $CONTAINER_NAME"
 echo "access_key: $ACCOUNT_KEY"
 ```
 
+## Function usage:
+
+```
+location = "westus" # from terraform.tfvars
+
+variable "sku" { # from variables.tf
+    default = {
+        westus = "16.04-LTS"
+        eastus = "18.04-LTS"
+    }
+}
+
+output "os_sku" {  # from main.tf
+    value = lookup(var.sku, var.location)
+}
+```
+...would return "16.04-LTS"
+
 
 
