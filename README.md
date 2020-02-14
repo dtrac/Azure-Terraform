@@ -40,6 +40,8 @@ Common commands:
 
 ## Useful Links:
 
+[Azure Registry](https://registry.terraform.io/search?q=azure)
+
 [HCL Reference](https://www.terraform.io/docs/configuration/index.html)
 
 [AzureRm Provider Auth](https://www.terraform.io/docs/providers/azurerm/index.html#authenticating-to-azure)
@@ -97,6 +99,26 @@ echo "storage_account_name: $STORAGE_ACCOUNT_NAME"
 echo "container_name: $CONTAINER_NAME"
 echo "access_key: $ACCOUNT_KEY"
 ```
+
+## Lookup function usage:
+
+```
+location = "westus" # from terraform.tfvars
+
+variable "sku" { # from variables.tf
+    default = {
+        westus = "16.04-LTS"
+        eastus = "18.04-LTS"
+    }
+}
+
+output "os_sku" {  # from main.tf
+    value = lookup(var.sku, var.location)
+}
+```
+...would return "16.04-LTS"
+
+
 
 
 
