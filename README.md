@@ -86,22 +86,48 @@ provider "azurerm" {
 ## Create tfstate storage
 
 ```
+UNIQUE_ID=$RANDOM
 REGION=uksouth
-RESOURCE_GROUP_NAME=tstate
-STORAGE_ACCOUNT_NAME=tstate$RANDOM
+RESOURCE_GROUP_NAME=tf-storage-rg
+STORAGE_ACCOUNT_NAME=tstate$UNIQUE_ID
 CONTAINER_NAME=tstate
 
 # Create resource group
-az group create --name $RESOURCE_GROUP_NAME --location $REGION
+az group create \
+  --name $RESOURCE_GROUP_NAME \
+  --location $REGION
 
 # Create storage account
-az storage account create --resource-group $RESOURCE_GROUP_NAME --name $STORAGE_ACCOUNT_NAME --sku Standard_LRS --encryption-services blob
+az storage account create \
+  --resource-group $RESOURCE_GROUP_NAME \
+  --name $STORAGE_ACCOUNT_NAME \
+  --sku Standard_LRS \
+  --encryption-services blob
+
+# List storage account details
+az storage account list \
+  --resource-group $RESOURCE_GROUP_NAME \
+  --query [].name \
+  --output tsv
 
 # Get storage account key
 ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query [0].value -o tsv)
 
 # Create blob container
-az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT_NAME --account-key $ACCOUNT_KEY
+az storage container create \
+  --name $CONTAINER_NAME \
+  --account-name $STORAGE_ACCOUNT_NAME \
+  --account-key $ACCOUNT_KEY
+
+# List container details
+az storage container list \
+  --account-name $STORAGE_ACCOUNT_NAME \
+  --account-key $ACCOUNT_KEY \
+  --query [].name \
+  --output tsv
+  
+
+
 
 echo "storage_account_name: $STORAGE_ACCOUNT_NAME"
 echo "container_name: $CONTAINER_NAME"
