@@ -83,7 +83,7 @@ provider "azurerm" {
 }
 ```
 
-## Create tfstate storage
+## Create tfstate storage:
 
 ```
 UNIQUE_ID=$RANDOM
@@ -125,13 +125,27 @@ az storage container list \
   --account-key $ACCOUNT_KEY \
   --query [].name \
   --output tsv
-  
-
-
 
 echo "storage_account_name: $STORAGE_ACCOUNT_NAME"
 echo "container_name: $CONTAINER_NAME"
 echo "access_key: $ACCOUNT_KEY"
+```
+
+## Create backend.tfvars:
+
+```
+
+echo 'resource_group_name = "tf-storage-rg"' | tee backend.tfvars
+
+echo 'storage_account_name = "'$(az storage account list \
+  --resource-group tf-storage-rg \
+  --query [].name \
+  --output tsv)'"' | tee -a backend.tfvars
+  
+echo 'container_name = "tstate"' | tee -a backend.tfvars
+
+echo 'key = "terraform.tfstate"' | tee -a backend.tfvars
+  
 ```
 
 ## Lookup function usage:
