@@ -52,13 +52,21 @@ Common commands:
 
 ### Using Env Vars:
 
-export ARM_CLIENT_ID="<Redacted>"
-    
-export ARM_CLIENT_SECRET="<Redacted>"
-    
-export ARM_SUBSCRIPTION_ID="<Redacted>"
-    
-export ARM_TENANT_ID="<Redacted>"
+export ARM_CLIENT_ID=""
+
+This is the name that your service principal uses to sign in to Azure.
+
+export ARM_CLIENT_SECRET=""
+
+This is the password that your service principal uses to sign in to Azure.
+
+export ARM_TENANT_ID=""
+
+A tenant is the organization in Azure Active Directory (Azure AD) where your service principal is located.
+
+export ARM_SUBSCRIPTION_ID=""
+
+This is your Azure subscription ID.
 
 ### Using Provider Block:
 ```
