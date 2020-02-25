@@ -117,6 +117,43 @@ az storage blob download \
   --file /tmp/terraform.tfstate
  ```
  
+## Create Service Principle
+
+```
+ARM_SUBSCRIPTION_ID=$(az account list \
+  --query "[?isDefault][id]" \
+  --all \
+  --output tsv)
+
+ARM_CLIENT_SECRET=$(az ad sp create-for-rbac \
+  --name http://tf-sp-$UNIQUE_ID \
+  --role Contributor \
+  --scopes "/subscriptions/$ARM_SUBSCRIPTION_ID" \
+  --query password \
+  --output tsv)
+
+ARM_CLIENT_ID=$(az ad sp show \
+  --id http://tf-sp-$UNIQUE_ID \
+  --query appId \
+  --output tsv)
+
+ARM_TENANT_ID=$(az ad sp show \
+  --id http://tf-sp-$UNIQUE_ID \
+  --query appOwnerTenantId \
+  --output tsv)
+  
+echo $ARM_SUBSCRIPTION_ID
+echo $ARM_CLIENT_SECRET
+echo $ARM_CLIENT_ID
+echo $ARM_TENANT_ID
+
+export ARM_SUBSCRIPTION_ID
+export ARM_CLIENT_SECRET
+export ARM_CLIENT_ID
+export ARM_TENANT_ID
+
+```
+
 ## Authentication Tips:
 
 ### Using Env Vars:
