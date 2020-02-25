@@ -107,6 +107,16 @@ echo 'key = "terraform.tfstate"' | tee -a backend.tfvars
 terraform init -backend-config="backend.tfvars"
 ```
 
+## Download state file
+
+```
+az storage blob download \
+  --account-name $STORAGE_ACCOUNT_NAME \
+  --container-name tstate \
+  --name terraform.tfstate \
+  --file /tmp/terraform.tfstate
+ ```
+ 
 ## Authentication Tips:
 
 ### Using Env Vars:
