@@ -1,6 +1,6 @@
 # Azure-Terraform
 
-## Getting Started
+## Getting Started:
 
 Mac:
 
@@ -19,7 +19,7 @@ Both:
 Ensure terraform executable is available on your PATH
 If using VS Code and terraform > 0.12 - ensure the >0.12 language support extension is installed..
 
-## Verify installation
+## Verify installation:
 
 ```
 $ terraform
@@ -36,51 +36,6 @@ Common commands:
     console            Interactive console for Terraform interpolations
     destroy            Destroy Terraform-managed infrastructure
 ...
-```
-
-## Useful Links:
-
-[Azure Registry](https://registry.terraform.io/search?q=azure)
-
-[HCL Reference](https://www.terraform.io/docs/configuration/index.html)
-
-[AzureRm Provider Auth](https://www.terraform.io/docs/providers/azurerm/index.html#authenticating-to-azure)
-
-[Guide for enthusiasts!](https://thorsten-hans.com/terraform-the-definitive-guide-for-azure-enthusiasts)
-
-## Authentication Tips:
-
-### Using Env Vars:
-
-export ARM_CLIENT_ID=""
-
-This is the name that your service principal uses to sign in to Azure.
-
-export ARM_CLIENT_SECRET=""
-
-This is the password that your service principal uses to sign in to Azure.
-
-export ARM_TENANT_ID=""
-
-A tenant is the organization in Azure Active Directory (Azure AD) where your service principal is located.
-
-export ARM_SUBSCRIPTION_ID=""
-
-This is your Azure subscription ID.
-
-### Using Provider Block:
-```
-variable "client_secret" {
-}
-
-provider "azurerm" {
-  version = "=1.44.0"
-
-  subscription_id = "00000000-0000-0000-0000-000000000000"
-  client_id       = "00000000-0000-0000-0000-000000000000"
-  client_secret   = var.client_secret
-  tenant_id       = "00000000-0000-0000-0000-000000000000"
-}
 ```
 
 ## Create tfstate storage:
@@ -148,6 +103,45 @@ echo 'key = "terraform.tfstate"' | tee -a backend.tfvars
   
 ```
 
+```
+terraform init -backend-config="backend.tfvars"
+```
+
+## Authentication Tips:
+
+### Using Env Vars:
+
+export ARM_CLIENT_ID=""
+
+This is the name that your service principal uses to sign in to Azure.
+
+export ARM_CLIENT_SECRET=""
+
+This is the password that your service principal uses to sign in to Azure.
+
+export ARM_TENANT_ID=""
+
+A tenant is the organization in Azure Active Directory (Azure AD) where your service principal is located.
+
+export ARM_SUBSCRIPTION_ID=""
+
+This is your Azure subscription ID.
+
+### Using Provider Block:
+```
+variable "client_secret" {
+}
+
+provider "azurerm" {
+  version = "=1.44.0"
+
+  subscription_id = "00000000-0000-0000-0000-000000000000"
+  client_id       = "00000000-0000-0000-0000-000000000000"
+  client_secret   = var.client_secret
+  tenant_id       = "00000000-0000-0000-0000-000000000000"
+}
+```
+
 ## Lookup function usage:
 
 ```
@@ -166,6 +160,17 @@ output "os_sku" {  # from main.tf
 ```
 ...would return "16.04-LTS"
 
+
+
+## Useful Links:
+
+[Azure Registry](https://registry.terraform.io/search?q=azure)
+
+[HCL Reference](https://www.terraform.io/docs/configuration/index.html)
+
+[AzureRm Provider Auth](https://www.terraform.io/docs/providers/azurerm/index.html#authenticating-to-azure)
+
+[Guide for enthusiasts!](https://thorsten-hans.com/terraform-the-definitive-guide-for-azure-enthusiasts)
 
 
 
