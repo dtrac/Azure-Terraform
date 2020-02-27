@@ -219,6 +219,7 @@ output "os_sku" {  # from main.tf
 
 [Guide for enthusiasts!](https://thorsten-hans.com/terraform-the-definitive-guide-for-azure-enthusiasts)
 
+[Microsoft - Terraform on Azure documentation](https://docs.microsoft.com/en-us/azure/terraform/)
 
 
 
